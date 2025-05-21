@@ -35,9 +35,7 @@ export class DirectoriesService {
               .readdirSync(dirPath)
               .filter((file) => {
                 try {
-                  // Ignorar la carpeta .git y otros archivos ocultos
                   if (file.startsWith('.')) return false;
-                  
                   return fs.statSync(path.join(dirPath, file)).isFile();
                 } catch (error) {
                   return false;

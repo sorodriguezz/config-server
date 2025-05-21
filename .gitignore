@@ -33,5 +33,5 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Finder (MacOS) folder config
 .DS_Store
 
-# We want to track submodules, so don't ignore src/repos
-# src/repos
+# Ignorar completamente los repositorios de configuración
+src/repos/*
