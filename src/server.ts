@@ -14,7 +14,7 @@ export class Server {
   private readonly httpFramework: AbstractHttpAdapter;
 
   constructor(private readonly options: Options) {
-    const { port, httpFramework = new FastifyAdapter() } = options;
+    const { port = 8888, httpFramework = new FastifyAdapter() } = options;
 
     this.port = port;
     this.httpFramework = httpFramework;

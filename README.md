@@ -184,6 +184,6 @@ Los archivos deben seguir la convención de nombres:
 Ejemplos:
 - `miapp-default.json`
 - `miapp-dev.yaml`
-- `miapp-dev.yml`
+- `miapp-qa.yml`
 - `miapp-prod.properties`
 
