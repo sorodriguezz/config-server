@@ -3,6 +3,7 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'js-yaml';
+import * as properties from 'properties';
 
 import type { IConfigFile } from './interfaces/config-file.interface';
 
@@ -30,14 +31,22 @@ export class ConfigFileService {
     };
   }
 
-  private parseContent(content: string, extension: string): any {
+   private parseContent(content: string, extension: string): any {
     try {
       switch (extension.toLowerCase()) {
         case '.json':
           return JSON.parse(content);
         case '.yaml':
+          return yaml.load(content);
         case '.yml':
           return yaml.load(content);
+        case '.properties':
+          return properties.parse(content, {
+            path: false,
+            variables: true,
+            sections: true,
+            namespace: true,
+          });
         default:
           return content;
       }
