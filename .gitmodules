@@ -1,0 +1,6 @@
+[submodule "src/repos/test123"]
+	path = src/repos/test123
+	url = https://github.com/sorodriguezz/test123.git
+[submodule "src/repos/testjson"]
+	path = src/repos/testjson
+	url = https://github.com/sorodriguezz/testjson.git
