@@ -63,7 +63,7 @@ export class DirectoriesService {
             files: files,
           };
         });
-
+      this.logger.debug('Directories found');
       return directories;
     } catch (error: any) {
       this.logger.error(
