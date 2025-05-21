@@ -3,7 +3,7 @@ import { AzureUrlBuilder } from '../builders/azure-url.builder';
 import { GitHubUrlBuilder } from '../builders/github-url-builder';
 import { GitLabUrlBuilder } from '../builders/gitlab-url.builder';
 import type { IRepositoryUrlBuilder } from '../builders/repository-builder.interface';
-import type { RepositoryManager } from '../repository-manager.config';
+import type { RepositoryManager } from '../../config/repository-manager.config';
 
 export enum RepositoryType {
   GITHUB = 'github',

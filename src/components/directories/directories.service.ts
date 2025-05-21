@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
-
-const BASE_REPOS_PATH = path.join(__dirname, '../..', 'repos');
+import { envs } from '../../config/envs.config';
+import { BASE_REPOS_PATH } from '../../config/constants.config';
 
 @Injectable()
 export class DirectoriesService {

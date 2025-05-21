@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 import * as path from 'path';
 import * as fs from 'fs';
 import simpleGit, { type SimpleGit } from 'simple-git';
-import type { RepositoryManager } from '../repository-manager.config';
+import type { RepositoryManager } from '../../config/repository-manager.config';
 import type { IRepositorySync } from '../interfaces/repository-sync.interface';
 import type { IRepositoryUrlBuilder } from '../builders/repository-builder.interface';
 
@@ -60,7 +60,7 @@ export class BaseRepositorySync implements IRepositorySync {
   private async clone(): Promise<void> {
     this.validateRepository();
     this.logger.verbose(`Cloning repository: ${this.repository.repository}`);
-    const repoUrl = await this.getRepositoryUrl();
+    const repoUrl = this.getRepositoryUrl();
     this.logger.debug(`Cloning from URL: ${this.maskSensitiveInfo(repoUrl)}`);
 
     const parentGit = simpleGit({ baseDir: this.basePath });

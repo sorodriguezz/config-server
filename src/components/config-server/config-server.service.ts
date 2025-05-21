@@ -5,9 +5,9 @@ import { RepositoryBuilderFactory } from '../../common/factories/repository-buil
 import { RepositorySyncFactory } from '../../common/factories/repository-sync.factory';
 import type { IRepositoryConfig } from '../../common/interfaces/repository-config.interface';
 import type { IRepositorySync } from '../../common/interfaces/repository-sync.interface';
-import { RepositoryManagerConfig } from '../../common/repository-manager.config';
+import { RepositoryManagerConfig } from '../../config/repository-manager.config';
+import { BASE_REPOS_PATH } from '../../config/constants.config';
 
-const BASE_REPOS_PATH = path.join(__dirname, '../..', 'repos');
 
 @Injectable()
 export class ConfigServerService implements OnModuleInit, IRepositoryConfig {

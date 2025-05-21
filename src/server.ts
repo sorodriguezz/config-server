@@ -1,7 +1,7 @@
 import { AbstractHttpAdapter, NestFactory } from '@nestjs/core';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 
 interface Options {
   port: number;
@@ -22,14 +22,6 @@ export class Server {
 
   async start() {
     const app = await NestFactory.create(AppModule, this.httpFramework);
-
-    app.useGlobalPipes(
-      new ValidationPipe({
-        transform: true,
-        whitelist: true,
-        forbidNonWhitelisted: true,
-      }),
-    );
 
     await app.listen(this.port, () => {
       this.logger.log(`Server is running on port ${this.port}`);

@@ -1,4 +1,4 @@
-import type { RepositoryManager } from '../repository-manager.config';
+import type { RepositoryManager } from '../../config/repository-manager.config';
 import type { RepositoryBuilderFactory } from './repository-builder.factory';
 import { BaseRepositorySync } from '../abstract/base-repository-sync';
 import type { IRepositorySync } from '../interfaces/repository-sync.interface';

@@ -1,9 +1,10 @@
 import { Controller, Get, Logger, Query } from '@nestjs/common';
 import { ConfigFileService } from './config-file.service';
 
-import { globSync } from 'fs';
-import * as path from 'path';
+import { globSync } from 'glob';
+import { basename, join, resolve, sep } from 'node:path';
 import type { ConfigQueryDto } from './dto/config-query.dto';
+import { BASE_REPOS_PATH } from '../../config/constants.config';
 
 @Controller()
 export class ConfigFileController {
@@ -26,21 +27,22 @@ export class ConfigFileController {
       `Fetching config for repo: ${repo}, application: ${application}, profile: ${profile}`,
     );
 
-    const filePattern = `${application}-${profile}.*`;
-    const repositoryPath = path.join(__dirname, '../..', `repos/${repo}`);
+    const repositoryPath = resolve(BASE_REPOS_PATH, repo);
+    const pattern = join(repositoryPath, `${application}-${profile}.*`)
+      .split(sep)
+      .join('/');
 
-    const files = globSync(path.join(repositoryPath, filePattern));
+    const matchedFiles = globSync(pattern, { nodir: true });
+    const filePath = matchedFiles[0];
 
-    if (files.length === 0) {
+    if (!filePath) {
       this.logger.warn(
         `No config file found for ${application}-${profile} in repo ${repo}`,
       );
       return {};
     }
 
-    const filePath = files[0] || '';
-
-    const fileName = path.basename(filePath);
+    const fileName = basename(filePath);
 
     const config = await this.configFileService.readConfigFile(
       repositoryPath,
