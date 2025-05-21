@@ -2,9 +2,9 @@ import { Logger } from '@nestjs/common';
 import * as path from 'path';
 import * as fs from 'fs';
 import simpleGit, { type SimpleGit } from 'simple-git';
-import type { RepositoryManager } from '../../config/repository-manager.config';
 import type { IRepositorySync } from '../interfaces/repository-sync.interface';
 import type { IRepositoryUrlBuilder } from '../builders/repository-builder.interface';
+import type { RepositoryManager } from '../../config/interfaces/repository-manager.interface';
 
 export class BaseRepositorySync implements IRepositorySync {
   protected readonly logger = new Logger(BaseRepositorySync.name);
@@ -64,7 +64,10 @@ export class BaseRepositorySync implements IRepositorySync {
     this.logger.debug(`Cloning from URL: ${this.maskSensitiveInfo(repoUrl)}`);
 
     const parentGit = simpleGit({ baseDir: this.basePath });
-    await parentGit.clone(repoUrl, this.repository.repository);
+    await parentGit.clone(repoUrl, this.repository.repository, [
+      '--branch',
+      this.repository.branch,
+    ]);
   }
 
   protected getRepositoryUrl(): string {
