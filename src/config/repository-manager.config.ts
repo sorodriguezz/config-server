@@ -1,18 +1,6 @@
-import { envs } from './envs.config';
 import { RepositoryType } from '../common/factories/repository-builder.factory';
-
-export interface RepositoryManager {
-  name: RepositoryType;
-  host: string;
-  protocol: string;
-  organization: string;
-  repository: string;
-  branch: string;
-  auth?: {
-    username: string;
-    token: string;
-  };
-}
+import { envs } from './envs.config';
+import type { RepositoryManager } from './interfaces/repository-manager.interface';
 
 export class RepositoryManagerConfig {
   public static readonly repositoryManager: RepositoryManager[] = [
