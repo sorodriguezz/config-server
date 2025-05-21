@@ -175,11 +175,15 @@ export const envs = {
 El servidor admite los siguientes formatos para archivos de configuración:
 - JSON (*.json)
 - Properties (*.properties)
+- YML (*.yml)
+- YAML (*.yaml)
 
 Los archivos deben seguir la convención de nombres:
 `<nombre-aplicacion>-<perfil>.<extension>`
 
 Ejemplos:
 - `miapp-default.json`
-- `miapp-dev.json`
+- `miapp-dev.yaml`
+- `miapp-dev.yml`
 - `miapp-prod.properties`
+
