@@ -116,16 +116,16 @@ export class RepositoryManagerConfig {
     },
     // Agregar el nuevo repositorio
     {
-      name: RepositoryType.GITHUB,
-      host: 'github.com',
+      name: RepositoryType.GITLAB, // En RepositoryType estan los disponibles
+      host: 'gitlab.com',
       protocol: 'https',
       organization: 'usuario',
       repository: 'nuevo-repo',
       branch: 'main',
       // Opcional: agregar autenticación si es un repo privado
       auth: {
-        username: envs.GITHUB_USERNAME,
-        token: envs.GITHUB_TOKEN,
+        username: envs.GITLAB_USERNAME,
+        token: envs.GITLAB_TOKEN,
       },
     },
   ];
