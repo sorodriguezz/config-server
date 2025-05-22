@@ -118,10 +118,10 @@ export class RepositoryManagerConfig {
     {
       name: RepositoryType.GITLAB, // En RepositoryType estan los disponibles
       host: 'gitlab.com',
-      protocol: 'https',
+      protocol: 'http',
       organization: 'usuario',
       repository: 'nuevo-repo',
-      branch: 'main',
+      branch: 'dev',
       // Opcional: agregar autenticación si es un repo privado
       auth: {
         username: envs.GITLAB_USERNAME,
