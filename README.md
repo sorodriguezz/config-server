@@ -63,11 +63,13 @@ GET /?repo=REPO_NAME&application=APP_NAME&profile=PROFILE
 ```
 
 **Parámetros:**
+
 - `repo`: Nombre del repositorio (ej: test123, testjson)
 - `application`: Nombre de la aplicación (ej: miapp)
 - `profile`: Perfil de configuración (ej: default, dev, prod)
 
 **Ejemplo:**
+
 ```
 GET /?repo=test123&application=miapp&profile=dev
 ```
@@ -136,22 +138,25 @@ export class RepositoryManagerConfig {
 
 El proyecto utiliza un archivo `.env` para configurar las variables de entorno. A continuación se describen las variables requeridas:
 
-| Variable         | Descripción                                              | Obligatorio |
-| --------------- | -------------------------------------------------------- | ----------- |
-| PORT            | Puerto en el que se ejecutará el servidor                 | Sí          |
-| GITHUB_USERNAME | Nombre de usuario para acceder a repositorios GitHub      | Sí          |
-| GITHUB_TOKEN    | Token de acceso personal para repositorios GitHub privados| Sí          |
+| Variable        | Descripción                                                | Obligatorio |
+| --------------- | ---------------------------------------------------------- | ----------- |
+| PORT            | Puerto en el que se ejecutará el servidor                  | Sí          |
+| BASE_REPOS_PATH | Ruta para guardado de los repositorios                     | Sí          |
+| GITHUB_USERNAME | Nombre de usuario para acceder a repositorios GitHub       | Sí          |
+| GITHUB_TOKEN    | Token de acceso personal para repositorios GitHub privados | Sí          |
 
 ### Agregar o Modificar Variables de Entorno
 
 Para agregar o modificar las variables de entorno, debes:
 
 1. Agregar la variable en el archivo `.env`:
+
 ```
 NUEVA_VARIABLE=valor
 ```
 
 2. Actualizar el archivo `.env.template` para documentar la nueva variable:
+
 ```
 NUEVA_VARIABLE=
 ```
@@ -161,29 +166,33 @@ NUEVA_VARIABLE=
 ```typescript
 export const envs = {
   PORT: get('PORT').required().asPortNumber(),
+  BASE_REPOS_PATH: get('BASE_REPOS_PATH').required().asString(),
   GITHUB_USERNAME: get('GITHUB_USERNAME').required().asString(),
   GITHUB_TOKEN: get('GITHUB_TOKEN').required().asString(),
   // Agregar la nueva variable
   NUEVA_VARIABLE: get('NUEVA_VARIABLE').required().asString(),
   // Si la variable no es obligatoria:
-  VARIABLE_OPCIONAL: get('VARIABLE_OPCIONAL').default('valor_predeterminado').asString(),
+  VARIABLE_OPCIONAL: get('VARIABLE_OPCIONAL')
+    .default('valor_predeterminado')
+    .asString(),
 };
 ```
 
 ## Formatos de Configuración Soportados
 
 El servidor admite los siguientes formatos para archivos de configuración:
-- JSON (*.json)
-- Properties (*.properties)
-- YML (*.yml)
-- YAML (*.yaml)
+
+- JSON (\*.json)
+- Properties (\*.properties)
+- YML (\*.yml)
+- YAML (\*.yaml)
 
 Los archivos deben seguir la convención de nombres:
 `<nombre-aplicacion>-<perfil>.<extension>`
 
 Ejemplos:
+
 - `miapp-default.json`
 - `miapp-dev.yaml`
 - `miapp-qa.yml`
 - `miapp-prod.properties`
-
