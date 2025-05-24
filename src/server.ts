@@ -29,6 +29,15 @@ export class Server {
       .setTitle('Config Server API')
       .setDescription('API para gestionar configuraciones centralizadas')
       .setVersion('1.0')
+      .addBasicAuth(
+        {
+          type: 'http',
+          scheme: 'basic',
+          description: 'Ingrese sus credenciales',
+          name: 'basic',
+        },
+        'basic',
+      )
       .build();
 
     const document = SwaggerModule.createDocument(app, config);
