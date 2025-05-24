@@ -248,8 +248,6 @@ export const envs = {
 };
 ```
 
-```
-
 ## Supported Configuration Formats
 
 The server supports the following formats for configuration files:
