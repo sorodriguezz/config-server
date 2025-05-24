@@ -16,16 +16,6 @@ Servidor de configuración centralizado que permite gestionar y distribuir archi
 - [Variables de Entorno](#configuración-de-variables-de-entorno)
 - [Formatos Soportados](#formatos-de-configuración-soportados)
 
-### English
-- [Technologies Used](README.md#technologies-used)
-- [Installation](README.md#installation)
-- [Basic Authentication](README.md#basic-authentication-configuration)
-- [Execution](README.md#execution)
-- [Available Endpoints](README.md#available-endpoints)
-- [Repository Administration](README.md#repository-administration)
-- [Environment Variables](README.md#environment-variables-configuration)
-- [Supported Formats](README.md#supported-configuration-formats)
-
 ## Tecnologías Utilizadas
 
 - **NestJS**: Framework de Node.js para construir aplicaciones del lado del servidor eficientes y escalables.
