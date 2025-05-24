@@ -34,8 +34,37 @@ cp .env.template .env
 
 ```dotenv
 PORT=3000
+PATH_SWAGGER=docs
+BASIC_AUTH_USERNAME=admin
+BASIC_AUTH_PASSWORD=password
+BASE_REPOS_PATH=../repos
 GITHUB_USERNAME=tu_usuario_github
 GITHUB_TOKEN=tu_token_github
+```
+
+## Configuración de Autenticación Básica
+
+El servidor utiliza autenticación básica (Basic Auth) para proteger los endpoints. Es necesario configurar las credenciales en el archivo `.env`:
+
+```dotenv
+BASIC_AUTH_USERNAME=admin
+BASIC_AUTH_PASSWORD=admin
+```
+
+Estas credenciales se utilizan para autenticar las solicitudes a los endpoints protegidos. Al iniciar el servidor, se crea automáticamente un usuario administrador con estas credenciales.
+
+### Cómo usar la autenticación en las solicitudes
+
+Para acceder a los endpoints protegidos, debes incluir las credenciales de autenticación básica en tus solicitudes HTTP:
+
+```bash
+# Utilizando curl
+curl -X GET "http://localhost:3000/directories" -u "admin:password"
+
+# Utilizando Postman
+# 1. Selecciona la pestaña "Authorization"
+# 2. Selecciona el tipo "Basic Auth"
+# 3. Ingresa el username y password configurados
 ```
 
 ## Ejecución
@@ -74,6 +103,8 @@ GET /?repo=REPO_NAME&application=APP_NAME&profile=PROFILE
 GET /?repo=test123&application=miapp&profile=dev
 ```
 
+**Autenticación**: Este endpoint requiere autenticación básica.
+
 ### Listar Directorios
 
 Lista todos los directorios y archivos disponibles en los repositorios.
@@ -82,13 +113,17 @@ Lista todos los directorios y archivos disponibles en los repositorios.
 GET /directories
 ```
 
+**Autenticación**: Este endpoint requiere autenticación básica.
+
 ### Sincronizar Repositorios
 
 Fuerza la sincronización de todos los repositorios.
 
 ```
-POST /config/sync
+POST /sync
 ```
+
+**Autenticación**: Este endpoint requiere autenticación básica.
 
 ### Documentación API (Swagger)
 
@@ -98,11 +133,11 @@ Accede a la documentación interactiva de la API mediante Swagger UI:
 GET /{PATH_SWAGGER}
 ```
 
-Donde `PATH_SWAGGER` es el valor configurado en el archivo `.env`. Por defecto es `api`.
+Donde `PATH_SWAGGER` es el valor configurado en el archivo `.env`. Por defecto es `docs`.
 
 Ejemplo:
 ```
-GET /api
+GET /docs
 ```
 
 ## Administración de Repositorios
@@ -153,13 +188,15 @@ export class RepositoryManagerConfig {
 
 El proyecto utiliza un archivo `.env` para configurar las variables de entorno. A continuación se describen las variables requeridas:
 
-| Variable        | Descripción                                                | Obligatorio |
-| --------------- | ---------------------------------------------------------- | ----------- |
-| PORT            | Puerto en el que se ejecutará el servidor                  | Sí          |
-| BASE_REPOS_PATH | Ruta para guardado de los repositorios                     | Sí          |
-| PATH_SWAGGER    | Ruta para acceder a la documentación de Swagger            | Sí          |
-| GITHUB_USERNAME | Nombre de usuario para acceder a repositorios GitHub       | Sí          |
-| GITHUB_TOKEN    | Token de acceso personal para repositorios GitHub privados | Sí          |
+| Variable            | Descripción                                                | Obligatorio |
+| ------------------- | ---------------------------------------------------------- | ----------- |
+| PORT                | Puerto en el que se ejecutará el servidor                  | Sí          |
+| BASE_REPOS_PATH     | Ruta para guardado de los repositorios                     | Sí          |
+| PATH_SWAGGER        | Ruta para acceder a la documentación de Swagger            | Sí          |
+| BASIC_AUTH_USERNAME | Nombre de usuario para la autenticación básica             | Sí          |
+| BASIC_AUTH_PASSWORD | Contraseña para la autenticación básica                    | Sí          |
+| GITHUB_USERNAME     | Nombre de usuario para acceder a repositorios GitHub       | Sí          |
+| GITHUB_TOKEN        | Token de acceso personal para repositorios GitHub privados | Sí          |
 
 ### Agregar o Modificar Variables de Entorno
 
@@ -184,6 +221,8 @@ export const envs = {
   PORT: get('PORT').required().asPortNumber(),
   PATH_SWAGGER: get('PATH_SWAGGER').required().asString(),
   BASE_REPOS_PATH: get('BASE_REPOS_PATH').required().asString(),
+  BASIC_AUTH_USERNAME: get('BASIC_AUTH_USERNAME').required().asString(),
+  BASIC_AUTH_PASSWORD: get('BASIC_AUTH_PASSWORD').required().asString(),
   GITHUB_USERNAME: get('GITHUB_USERNAME').required().asString(),
   GITHUB_TOKEN: get('GITHUB_TOKEN').required().asString(),
   // Agregar la nueva variable
@@ -192,6 +231,7 @@ export const envs = {
   VARIABLE_OPCIONAL: get('VARIABLE_OPCIONAL')
     .default('valor_predeterminado')
     .asString(),
+};
 };
 ```
 
