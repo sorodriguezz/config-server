@@ -266,3 +266,17 @@ Examples:
 - `myapp-dev.yaml`
 - `myapp-qa.yml`
 - `myapp-prod.properties`
+
+## Config Client
+
+For easy integration with your applications, you can use the official config client:
+
+### @sorodriguez/config-client
+
+A dedicated client library to simplify connecting to this config server and fetching configurations.
+
+**NPM Package**: [https://www.npmjs.com/package/@sorodriguez/config-client](https://www.npmjs.com/package/@sorodriguez/config-client)
+
+**GitHub Repository**: [https://github.com/sorodriguezz/config-client.git](https://github.com/sorodriguezz/config-client.git)
+
+The client provides a simple interface to fetch configurations and integrates seamlessly with this config server implementation. Refer to the client documentation for installation instructions and usage examples.

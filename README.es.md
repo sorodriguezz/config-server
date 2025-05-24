@@ -266,3 +266,17 @@ Ejemplos:
 - `miapp-dev.yaml`
 - `miapp-qa.yml`
 - `miapp-prod.properties`
+
+## Cliente de Configuración
+
+Para una fácil integración con tus aplicaciones, puedes utilizar el cliente oficial de configuración:
+
+### @sorodriguez/config-client
+
+Una biblioteca cliente dedicada para simplificar la conexión a este servidor de configuración y la obtención de configuraciones.
+
+**Paquete NPM**: [https://www.npmjs.com/package/@sorodriguez/config-client](https://www.npmjs.com/package/@sorodriguez/config-client)
+
+**Repositorio GitHub**: [https://github.com/sorodriguezz/config-client.git](https://github.com/sorodriguezz/config-client.git)
+
+El cliente proporciona una interfaz sencilla para obtener configuraciones y se integra perfectamente con esta implementación del servidor de configuración. Consulta la documentación del cliente para obtener instrucciones de instalación y ejemplos de uso.
