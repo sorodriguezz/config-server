@@ -4,156 +4,178 @@
 
 Servidor de configuración centralizado que permite gestionar y distribuir archivos de configuración para diferentes aplicaciones y entornos.
 
-## Technologies Used
+## Tabla de Contenidos
 
-- **NestJS**: Node.js framework for building efficient and scalable server-side applications.
-- **Bun**: Fast JavaScript runtime, v1.2.13.
-- **TypeScript**: Typed programming language that compiles to JavaScript.
-- **Git**: Version control system.
-- **simple-git**: Library for handling Git operations from Node.js.
-- **dotenv**: For loading environment variables from .env files.
-- **env-var**: Environment variable validation and parsing.
+### Español
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Instalación](#instalación)
+- [Autenticación Básica](#configuración-de-autenticación-básica)
+- [Ejecución](#ejecución)
+- [Endpoints Disponibles](#endpoints-disponibles)
+- [Administración de Repositorios](#administración-de-repositorios)
+- [Variables de Entorno](#configuración-de-variables-de-entorno)
+- [Formatos Soportados](#formatos-de-configuración-soportados)
 
-## Installation
+### English
+- [Technologies Used](README.md#technologies-used)
+- [Installation](README.md#installation)
+- [Basic Authentication](README.md#basic-authentication-configuration)
+- [Execution](README.md#execution)
+- [Available Endpoints](README.md#available-endpoints)
+- [Repository Administration](README.md#repository-administration)
+- [Environment Variables](README.md#environment-variables-configuration)
+- [Supported Formats](README.md#supported-configuration-formats)
 
-### Dependencies
+## Tecnologías Utilizadas
 
-To install project dependencies:
+- **NestJS**: Framework de Node.js para construir aplicaciones del lado del servidor eficientes y escalables.
+- **Bun**: Entorno de ejecución JavaScript rápido, v1.2.13.
+- **TypeScript**: Lenguaje de programación tipado que se compila a JavaScript.
+- **Git**: Sistema de control de versiones.
+- **simple-git**: Librería para manejar operaciones Git desde Node.js.
+- **dotenv**: Para cargar variables de entorno desde archivos .env.
+- **env-var**: Validación y parseo de variables de entorno.
+
+## Instalación
+
+### Dependencias
+
+Para instalar las dependencias del proyecto:
 
 ```bash
 bun install
 ```
 
-### Environment Variables
+### Variables de Entorno
 
-1. Copy the template file to a .env file:
+1. Copia el archivo template a un archivo .env:
 
 ```bash
 cp .env.template .env
 ```
 
-2. Edit the `.env` file with your values:
+2. Edita el archivo `.env` con tus valores:
 
 ```dotenv
 PORT=3000
 PATH_SWAGGER=docs
 BASIC_AUTH_USERNAME=admin
 BASIC_AUTH_PASSWORD=password
-BASE_REPOS_PATH=./repos
-GITHUB_USERNAME=your_github_username
-GITHUB_TOKEN=your_github_token
+BASE_REPOS_PATH=../repos
+GITHUB_USERNAME=tu_usuario_github
+GITHUB_TOKEN=tu_token_github
 ```
 
-## Basic Authentication Configuration
+## Configuración de Autenticación Básica
 
-The server uses basic authentication (Basic Auth) to protect endpoints. It's necessary to configure the credentials in the `.env` file:
+El servidor utiliza autenticación básica (Basic Auth) para proteger los endpoints. Es necesario configurar las credenciales en el archivo `.env`:
 
 ```dotenv
 BASIC_AUTH_USERNAME=admin
 BASIC_AUTH_PASSWORD=admin
 ```
 
-These credentials are used to authenticate requests to protected endpoints. When starting the server, an administrator user is automatically created with these credentials.
+Estas credenciales se utilizan para autenticar las solicitudes a los endpoints protegidos. Al iniciar el servidor, se crea automáticamente un usuario administrador con estas credenciales.
 
-### How to use authentication in requests
+### Cómo usar la autenticación en las solicitudes
 
-To access protected endpoints, you must include basic authentication credentials in your HTTP requests:
+Para acceder a los endpoints protegidos, debes incluir las credenciales de autenticación básica en tus solicitudes HTTP:
 
 ```bash
-# Using curl
+# Utilizando curl
 curl -X GET "http://localhost:3000/directories" -u "admin:password"
 
-# Using Postman
-# 1. Select the "Authorization" tab
-# 2. Select type "Basic Auth"
-# 3. Enter the configured username and password
+# Utilizando Postman
+# 1. Selecciona la pestaña "Authorization"
+# 2. Selecciona el tipo "Basic Auth"
+# 3. Ingresa el username y password configurados
 ```
 
-## Execution
+## Ejecución
 
-To start the server:
+Para iniciar el servidor:
 
 ```bash
 bun run start
 ```
 
-To run in development mode with automatic reload:
+Para ejecutar en modo desarrollo con recarga automática:
 
 ```bash
 bun run start:dev
 ```
 
-## Available Endpoints
+## Endpoints Disponibles
 
-### Get Configuration
+### Obtener Configuración
 
-Gets a configuration file for a specific application.
+Obtiene un archivo de configuración para una aplicación específica.
 
 ```
 GET /?repo=REPO_NAME&application=APP_NAME&profile=PROFILE
 ```
 
-**Parameters:**
+**Parámetros:**
 
-- `repo`: Repository name (e.g.: test123, testjson)
-- `application`: Application name (e.g.: myapp)
-- `profile`: Configuration profile (e.g.: default, dev, prod)
+- `repo`: Nombre del repositorio (ej: test123, testjson)
+- `application`: Nombre de la aplicación (ej: miapp)
+- `profile`: Perfil de configuración (ej: default, dev, prod)
 
-**Example:**
+**Ejemplo:**
 
 ```
-GET /?repo=test123&application=myapp&profile=dev
+GET /?repo=test123&application=miapp&profile=dev
 ```
 
-**Authentication**: This endpoint requires basic authentication.
+**Autenticación**: Este endpoint requiere autenticación básica.
 
-### List Directories
+### Listar Directorios
 
-Lists all directories and files available in the repositories.
+Lista todos los directorios y archivos disponibles en los repositorios.
 
 ```
 GET /directories
 ```
 
-**Authentication**: This endpoint requires basic authentication.
+**Autenticación**: Este endpoint requiere autenticación básica.
 
-### Synchronize Repositories
+### Sincronizar Repositorios
 
-Forces the synchronization of all repositories.
+Fuerza la sincronización de todos los repositorios.
 
 ```
 POST /sync
 ```
 
-**Authentication**: This endpoint requires basic authentication.
+**Autenticación**: Este endpoint requiere autenticación básica.
 
-### API Documentation (Swagger)
+### Documentación API (Swagger)
 
-Access the interactive API documentation through Swagger UI:
+Accede a la documentación interactiva de la API mediante Swagger UI:
 
 ```
 GET /{PATH_SWAGGER}
 ```
 
-Where `PATH_SWAGGER` is the value configured in the `.env` file. By default it is `docs`.
+Donde `PATH_SWAGGER` es el valor configurado en el archivo `.env`. Por defecto es `docs`.
 
-Example:
+Ejemplo:
 ```
 GET /docs
 ```
 
-## Repository Administration
+## Administración de Repositorios
 
-### How to Add New Repositories
+### Cómo Agregar Nuevos Repositorios
 
-To add a new configuration repository:
+Para agregar un nuevo repositorio de configuración:
 
-**Configuration update**: Modify the `repository-manager.config.ts` file to include the new repository:
+**Actualización de configuración**: Modificar el archivo `repository-manager.config.ts` para incluir el nuevo repositorio:
 
 ```typescript
 export class RepositoryManagerConfig {
   public static readonly repositoryManager: RepositoryManager[] = [
-    // Existing repositories
+    // Repositorios existentes
     {
       name: RepositoryType.GITHUB,
       host: 'github.com',
@@ -166,15 +188,15 @@ export class RepositoryManagerConfig {
         token: envs.GITHUB_TOKEN,
       },
     },
-    // Add the new repository
+    // Agregar el nuevo repositorio
     {
-      name: RepositoryType.GITLAB, // Available types are in RepositoryType
+      name: RepositoryType.GITLAB, // En RepositoryType estan los disponibles
       host: 'gitlab.com',
       protocol: 'http',
-      organization: 'user',
-      repository: 'new-repo',
+      organization: 'usuario',
+      repository: 'nuevo-repo',
       branch: 'dev',
-      // Optional: add authentication if it's a private repo
+      // Opcional: agregar autenticación si es un repo privado
       auth: {
         username: envs.GITLAB_USERNAME,
         token: envs.GITLAB_TOKEN,
@@ -184,39 +206,39 @@ export class RepositoryManagerConfig {
 }
 ```
 
-## Environment Variables Configuration
+## Configuración de Variables de Entorno
 
-### .env File
+### Archivo .env
 
-The project uses a `.env` file to configure environment variables. The required variables are described below:
+El proyecto utiliza un archivo `.env` para configurar las variables de entorno. A continuación se describen las variables requeridas:
 
-| Variable            | Description                                         | Required |
-| ------------------- | --------------------------------------------------- | -------- |
-| PORT                | Port on which the server will run                   | Yes      |
-| BASE_REPOS_PATH     | Path for storing repositories                       | Yes      |
-| PATH_SWAGGER        | Path to access Swagger documentation                | Yes      |
-| BASIC_AUTH_USERNAME | Username for basic authentication                   | Yes      |
-| BASIC_AUTH_PASSWORD | Password for basic authentication                   | Yes      |
-| GITHUB_USERNAME     | Username to access GitHub repositories              | Yes      |
-| GITHUB_TOKEN        | Personal access token for private GitHub repositories | Yes   |
+| Variable            | Descripción                                                | Obligatorio |
+| ------------------- | ---------------------------------------------------------- | ----------- |
+| PORT                | Puerto en el que se ejecutará el servidor                  | Sí          |
+| BASE_REPOS_PATH     | Ruta para guardado de los repositorios                     | Sí          |
+| PATH_SWAGGER        | Ruta para acceder a la documentación de Swagger            | Sí          |
+| BASIC_AUTH_USERNAME | Nombre de usuario para la autenticación básica             | Sí          |
+| BASIC_AUTH_PASSWORD | Contraseña para la autenticación básica                    | Sí          |
+| GITHUB_USERNAME     | Nombre de usuario para acceder a repositorios GitHub       | Sí          |
+| GITHUB_TOKEN        | Token de acceso personal para repositorios GitHub privados | Sí          |
 
-### Adding or Modifying Environment Variables
+### Agregar o Modificar Variables de Entorno
 
-To add or modify environment variables, you must:
+Para agregar o modificar las variables de entorno, debes:
 
-1. Add the variable in the `.env` file:
-
-```
-NEW_VARIABLE=value
-```
-
-2. Update the `.env.template` file to document the new variable:
+1. Agregar la variable en el archivo `.env`:
 
 ```
-NEW_VARIABLE=
+NUEVA_VARIABLE=valor
 ```
 
-3. Modify the `src/config/envs.config.ts` file to include the new variable:
+2. Actualizar el archivo `.env.template` para documentar la nueva variable:
+
+```
+NUEVA_VARIABLE=
+```
+
+3. Modificar el archivo `src/config/envs.config.ts` para incluir la nueva variable:
 
 ```typescript
 export const envs = {
@@ -227,30 +249,30 @@ export const envs = {
   BASIC_AUTH_PASSWORD: get('BASIC_AUTH_PASSWORD').required().asString(),
   GITHUB_USERNAME: get('GITHUB_USERNAME').required().asString(),
   GITHUB_TOKEN: get('GITHUB_TOKEN').required().asString(),
-  // Add the new variable
-  NEW_VARIABLE: get('NEW_VARIABLE').required().asString(),
-  // If the variable is not mandatory:
-  OPTIONAL_VARIABLE: get('OPTIONAL_VARIABLE')
-    .default('default_value')
+  // Agregar la nueva variable
+  NUEVA_VARIABLE: get('NUEVA_VARIABLE').required().asString(),
+  // Si la variable no es obligatoria:
+  VARIABLE_OPCIONAL: get('VARIABLE_OPCIONAL')
+    .default('valor_predeterminado')
     .asString(),
 };
 ```
 
-## Supported Configuration Formats
+## Formatos de Configuración Soportados
 
-The server supports the following formats for configuration files:
+El servidor admite los siguientes formatos para archivos de configuración:
 
 - JSON (\*.json)
 - Properties (\*.properties)
 - YML (\*.yml)
 - YAML (\*.yaml)
 
-Files must follow the naming convention:
-`<application-name>-<profile>.<extension>`
+Los archivos deben seguir la convención de nombres:
+`<nombre-aplicacion>-<perfil>.<extension>`
 
-Examples:
+Ejemplos:
 
-- `myapp-default.json`
-- `myapp-dev.yaml`
-- `myapp-qa.yml`
-- `myapp-prod.properties`
+- `miapp-default.json`
+- `miapp-dev.yaml`
+- `miapp-qa.yml`
+- `miapp-prod.properties`

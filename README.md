@@ -4,6 +4,28 @@
 
 Centralized configuration server that allows managing and distributing configuration files for different applications and environments.
 
+## Table of Contents
+
+### English
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Basic Authentication](#basic-authentication-configuration)
+- [Execution](#execution)
+- [Available Endpoints](#available-endpoints)
+- [Repository Administration](#repository-administration)
+- [Environment Variables Configuration](#environment-variables-configuration)
+- [Supported Configuration Formats](#supported-configuration-formats)
+
+### Español
+- [Tecnologías Utilizadas](README.es.md#tecnologías-utilizadas)
+- [Instalación](README.es.md#instalación)
+- [Autenticación Básica](README.es.md#configuración-de-autenticación-básica)
+- [Ejecución](README.es.md#ejecución)
+- [Endpoints Disponibles](README.es.md#endpoints-disponibles)
+- [Administración de Repositorios](README.es.md#administración-de-repositorios)
+- [Variables de Entorno](README.es.md#configuración-de-variables-de-entorno)
+- [Formatos Soportados](README.es.md#formatos-de-configuración-soportados)
+
 ## Technologies Used
 
 - **NestJS**: Node.js framework for building efficient and scalable server-side applications.
