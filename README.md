@@ -247,7 +247,7 @@ export const envs = {
     .asString(),
 };
 ```
-};
+
 ```
 
 ## Supported Configuration Formats
