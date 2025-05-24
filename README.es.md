@@ -1,8 +1,8 @@
 # Config Server
 
-**English** | [Español](README.es.md)
+[English](README.md) | **Español**
 
-Centralized configuration server that allows managing and distributing configuration files for different applications and environments.
+Servidor de configuración centralizado que permite gestionar y distribuir archivos de configuración para diferentes aplicaciones y entornos.
 
 ## Technologies Used
 
@@ -39,7 +39,7 @@ PORT=3000
 PATH_SWAGGER=docs
 BASIC_AUTH_USERNAME=admin
 BASIC_AUTH_PASSWORD=password
-BASE_REPOS_PATH=../repos
+BASE_REPOS_PATH=./repos
 GITHUB_USERNAME=your_github_username
 GITHUB_TOKEN=your_github_token
 ```
@@ -233,8 +233,6 @@ export const envs = {
   OPTIONAL_VARIABLE: get('OPTIONAL_VARIABLE')
     .default('default_value')
     .asString(),
-};
-```
 };
 ```
 
