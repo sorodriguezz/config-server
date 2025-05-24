@@ -24,9 +24,17 @@ export class AuthService implements OnModuleInit {
     username: string;
     password: string;
     name: string;
-  }): Promise<Omit<User, 'password'>> {
+  }): Promise<void> {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
+
+    const existingUser = await this.usersRepository.findOne({
+      where: { username: 'admin' },
+    });
+
+    if (existingUser) {
+      return;
+    }
 
     const user = this.usersRepository.create({
       username: createUserDto.username,
@@ -35,9 +43,6 @@ export class AuthService implements OnModuleInit {
     });
 
     await this.usersRepository.save(user);
-
-    const { password, ...result } = user;
-    return result;
   }
 
   async validateUser(username: string, password: string): Promise<any> {

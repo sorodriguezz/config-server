@@ -4,6 +4,8 @@ import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { envs } from './config/envs.config';
+import { mkdirSync, existsSync } from 'fs';
+import { join } from 'path';
 
 interface Options {
   port: number;
@@ -23,6 +25,9 @@ export class Server {
   }
 
   async start() {
+    const dbDir = join(process.cwd(), 'data');
+    if (!existsSync(dbDir)) mkdirSync(dbDir, { recursive: true });
+
     const app = await NestFactory.create(AppModule, this.httpFramework);
 
     const config = new DocumentBuilder()

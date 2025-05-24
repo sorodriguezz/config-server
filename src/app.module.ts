@@ -5,13 +5,16 @@ import { ConfigFileModule } from './components/config-file/config-file.module';
 import { ConfigServerModule } from './components/config-server/config-server.module';
 import { DirectoriesModule } from './components/directories/directories.module';
 
+import { join } from 'path';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: ':memory:',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      database: join(process.cwd(), 'data', 'database.sqlite'),
+      entities: [join(__dirname, '**', '*.entity.{js,ts}')],
       synchronize: true,
+      autoLoadEntities: true,
     }),
     ConfigServerModule,
     ConfigFileModule,
