@@ -18,10 +18,12 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@fastify/static": "^8.2.0",
     "@nestjs/common": "^11.1.1",
     "@nestjs/core": "^11.1.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-fastify": "^11.1.1",
+    "@nestjs/swagger": "^11.2.0",
     "dotenv": "^16.5.0",
     "env-var": "^7.5.0",
     "js-yaml": "^4.1.0",

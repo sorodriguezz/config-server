@@ -2,6 +2,8 @@ import { AbstractHttpAdapter, NestFactory } from '@nestjs/core';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { envs } from './config/envs.config';
 
 interface Options {
   port: number;
@@ -22,6 +24,15 @@ export class Server {
 
   async start() {
     const app = await NestFactory.create(AppModule, this.httpFramework);
+
+    const config = new DocumentBuilder()
+      .setTitle('Config Server API')
+      .setDescription('API para gestionar configuraciones centralizadas')
+      .setVersion('1.0')
+      .build();
+
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup(envs.PATH_SWAGGER, app, document);
 
     await app.listen(this.port, () => {
       this.logger.log(`Server is running on port ${this.port}`);

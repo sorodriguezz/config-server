@@ -90,6 +90,21 @@ Fuerza la sincronización de todos los repositorios.
 POST /config/sync
 ```
 
+### Documentación API (Swagger)
+
+Accede a la documentación interactiva de la API mediante Swagger UI:
+
+```
+GET /{PATH_SWAGGER}
+```
+
+Donde `PATH_SWAGGER` es el valor configurado en el archivo `.env`. Por defecto es `api`.
+
+Ejemplo:
+```
+GET /api
+```
+
 ## Administración de Repositorios
 
 ### Cómo Agregar Nuevos Repositorios
@@ -142,6 +157,7 @@ El proyecto utiliza un archivo `.env` para configurar las variables de entorno. 
 | --------------- | ---------------------------------------------------------- | ----------- |
 | PORT            | Puerto en el que se ejecutará el servidor                  | Sí          |
 | BASE_REPOS_PATH | Ruta para guardado de los repositorios                     | Sí          |
+| PATH_SWAGGER    | Ruta para acceder a la documentación de Swagger            | Sí          |
 | GITHUB_USERNAME | Nombre de usuario para acceder a repositorios GitHub       | Sí          |
 | GITHUB_TOKEN    | Token de acceso personal para repositorios GitHub privados | Sí          |
 
@@ -166,6 +182,7 @@ NUEVA_VARIABLE=
 ```typescript
 export const envs = {
   PORT: get('PORT').required().asPortNumber(),
+  PATH_SWAGGER: get('PATH_SWAGGER').required().asString(),
   BASE_REPOS_PATH: get('BASE_REPOS_PATH').required().asString(),
   GITHUB_USERNAME: get('GITHUB_USERNAME').required().asString(),
   GITHUB_TOKEN: get('GITHUB_TOKEN').required().asString(),

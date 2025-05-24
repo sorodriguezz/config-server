@@ -5,14 +5,22 @@ import { globSync } from 'glob';
 import { basename, join, resolve, sep } from 'node:path';
 import type { ConfigQueryDto } from './dto/config-query.dto';
 import { BASE_REPOS_PATH } from '../../config/constants.config';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller()
+@ApiTags('Get File')
 export class ConfigFileController {
   private readonly logger = new Logger(ConfigFileController.name);
 
   constructor(private readonly configFileService: ConfigFileService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Obtener configuración' })
+  @ApiQuery({ name: 'repo', description: 'Nombre del repositorio', required: true })
+  @ApiQuery({ name: 'application', description: 'Nombre de la aplicación', required: true })
+  @ApiQuery({ name: 'profile', description: 'Perfil de configuración', required: true })
+  @ApiResponse({ status: 200, description: 'Configuración obtenida exitosamente' })
+  @ApiResponse({ status: 404, description: 'Configuración no encontrada' })
   async getConfig(@Query() query: ConfigQueryDto) {
     const { repo, application, profile } = query;
 
