@@ -7,6 +7,7 @@ Centralized configuration server that allows managing and distributing configura
 ## Table of Contents
 
 ### English
+
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Basic Authentication](#basic-authentication-configuration)
@@ -47,13 +48,16 @@ cp .env.template .env
 2. Edit the `.env` file with your values:
 
 ```dotenv
-PORT=3000
-PATH_SWAGGER=docs
-BASIC_AUTH_USERNAME=admin
-BASIC_AUTH_PASSWORD=password
+PORT=8888
 BASE_REPOS_PATH=../repos
-GITHUB_USERNAME=your_github_username
-GITHUB_TOKEN=your_github_token
+
+PATH_SWAGGER=docs
+
+BASIC_AUTH_USERNAME=admin
+BASIC_AUTH_PASSWORD=admin
+
+THROTTLER_TTL=10
+THROTTLER_LIMIT=5
 ```
 
 ## Basic Authentication Configuration
@@ -150,6 +154,7 @@ GET /{PATH_SWAGGER}
 Where `PATH_SWAGGER` is the value configured in the `.env` file. By default it is `docs`.
 
 Example:
+
 ```
 GET /docs
 ```
@@ -202,15 +207,13 @@ export class RepositoryManagerConfig {
 
 The project uses a `.env` file to configure environment variables. The required variables are described below:
 
-| Variable            | Description                                         | Required |
-| ------------------- | --------------------------------------------------- | -------- |
-| PORT                | Port on which the server will run                   | Yes      |
-| BASE_REPOS_PATH     | Path for storing repositories                       | Yes      |
-| PATH_SWAGGER        | Path to access Swagger documentation                | Yes      |
-| BASIC_AUTH_USERNAME | Username for basic authentication                   | Yes      |
-| BASIC_AUTH_PASSWORD | Password for basic authentication                   | Yes      |
-| GITHUB_USERNAME     | Username to access GitHub repositories              | Yes      |
-| GITHUB_TOKEN        | Personal access token for private GitHub repositories | Yes   |
+| Variable            | Description                          | Required |
+| ------------------- | ------------------------------------ | -------- |
+| PORT                | Port on which the server will run    | Yes      |
+| BASE_REPOS_PATH     | Path for storing repositories        | Yes      |
+| PATH_SWAGGER        | Path to access Swagger documentation | Yes      |
+| BASIC_AUTH_USERNAME | Username for basic authentication    | Yes      |
+| BASIC_AUTH_PASSWORD | Password for basic authentication    | Yes      |
 
 ### Adding or Modifying Environment Variables
 
@@ -237,8 +240,6 @@ export const envs = {
   BASE_REPOS_PATH: get('BASE_REPOS_PATH').required().asString(),
   BASIC_AUTH_USERNAME: get('BASIC_AUTH_USERNAME').required().asString(),
   BASIC_AUTH_PASSWORD: get('BASIC_AUTH_PASSWORD').required().asString(),
-  GITHUB_USERNAME: get('GITHUB_USERNAME').required().asString(),
-  GITHUB_TOKEN: get('GITHUB_TOKEN').required().asString(),
   // Add the new variable
   NEW_VARIABLE: get('NEW_VARIABLE').required().asString(),
   // If the variable is not mandatory:

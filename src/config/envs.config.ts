@@ -7,6 +7,6 @@ export const envs = {
   BASIC_AUTH_USERNAME: get('BASIC_AUTH_USERNAME').required().asString(),
   BASIC_AUTH_PASSWORD: get('BASIC_AUTH_PASSWORD').required().asString(),
   BASE_REPOS_PATH: get('BASE_REPOS_PATH').required().asString(),
-  GITHUB_USERNAME: get('GITHUB_USERNAME').required().asString(),
-  GITHUB_TOKEN: get('GITHUB_TOKEN').required().asString(),
+  THROTTLER_TTL: get('THROTTLER_TTL').required().asInt(),
+  THROTTLER_LIMIT: get('THROTTLER_LIMIT').required().asInt(),
 };

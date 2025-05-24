@@ -1,4 +1,3 @@
-import { envs } from '../../config/envs.config';
 import type { RepositoryManager } from '../../config/interfaces/repository-manager.interface';
 import { AzureUrlBuilder } from '../builders/azure-url.builder';
 import { GitHubUrlBuilder } from '../builders/github-url-builder';
@@ -23,7 +22,7 @@ export class RepositoryBuilderFactory {
 
     if (repository.auth) {
       url.setAsPublic(false);
-      url.setCredentials(envs.GITHUB_USERNAME, envs.GITHUB_TOKEN);
+      url.setCredentials(repository.auth.username, repository.auth.token);
     } else {
       url.setAsPublic(true);
     }

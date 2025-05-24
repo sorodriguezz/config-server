@@ -6,9 +6,20 @@ import { ConfigServerModule } from './components/config-server/config-server.mod
 import { DirectoriesModule } from './components/directories/directories.module';
 
 import { join } from 'path';
+import { seconds, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
+import { envs } from './config/envs.config';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: seconds(envs.THROTTLER_TTL),
+          limit: envs.THROTTLER_LIMIT,
+        },
+      ],
+    }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: join(process.cwd(), 'data', 'database.sqlite'),
@@ -20,6 +31,12 @@ import { join } from 'path';
     ConfigFileModule,
     DirectoriesModule,
     AuthModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}
