@@ -48,7 +48,7 @@ export class Server {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup(envs.PATH_SWAGGER, app, document);
 
-    await app.listen(this.port, () => {
+    await app.listen(this.port, '0.0.0.0', () => {
       this.logger.log(`Server is running on port ${this.port}`);
     });
   }

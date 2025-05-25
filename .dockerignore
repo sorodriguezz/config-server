@@ -1,0 +1,36 @@
+# Dependencias
+node_modules
+npm-debug.log
+
+# Sistema y editores
+.DS_Store
+.idea
+.vscode
+*.swp
+*.swo
+
+# Build
+dist
+build
+
+# Archivos de entorno (se copian explícitamente en el Dockerfile)
+# .env
+
+# Git
+.git
+.gitignore
+
+# Logs
+logs
+*.log
+
+# Datos (se montarán como volumen)
+data/*.sqlite
+
+# Otros
+README.md
+README.es.md
+docker-compose.yml
+Dockerfile
+.dockerignore
+fly.toml

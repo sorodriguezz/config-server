@@ -1,0 +1,20 @@
+services:
+  config-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: config-server:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/app/data
+      - ../repos:/repos
+    environment:
+      - PORT=8888
+      - BASE_REPOS_PATH=/repos
+      - PATH_SWAGGER=docs
+      - BASIC_AUTH_USERNAME=admin
+      - BASIC_AUTH_PASSWORD=admin
+      - THROTTLER_TTL=10
+      - THROTTLER_LIMIT=5
+    restart: unless-stopped
