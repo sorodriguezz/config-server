@@ -1,8 +1,8 @@
-# Guía de Despliegue con Docker y Fly.io
+# Guía de Despliegue con Docker
 
-## Despliegue Local con Docker Compose
+## Despliegue con Docker Compose (recomendado)
 
-Para ejecutar el proyecto localmente usando Docker:
+Para ejecutar el proyecto usando Docker Compose:
 
 1. Asegúrate de tener Docker y Docker Compose instalados en tu sistema.
 
@@ -14,58 +14,67 @@ docker-compose up -d
 
 Esto construirá la imagen y ejecutará el contenedor con todas las configuraciones necesarias.
 
-3. Accede a la aplicación en: http://localhost:8888
-
-4. Para acceder a la documentación Swagger: http://localhost:8888/docs
-
-## Despliegue en Fly.io
-
-Para desplegar en Fly.io:
-
-1. Instala la CLI de Fly.io:
+3. Para ver los logs del contenedor:
 
 ```bash
-# macOS
-brew install flyctl
-
-# Otras plataformas, consulta: https://fly.io/docs/hands-on/install-flyctl/
+docker-compose logs -f
 ```
 
-2. Inicia sesión o regístrate en Fly.io:
+4. Para detener el contenedor:
 
 ```bash
-fly auth login
+docker-compose down
 ```
 
-3. Inicializa tu aplicación (si es la primera vez):
+5. Accede a la aplicación en: http://localhost:8888
+
+6. Para acceder a la documentación Swagger: http://localhost:8888/docs
+
+## Despliegue con Docker (manual)
+
+Si prefieres usar Docker directamente sin Docker Compose:
+
+1. Construye la imagen Docker:
 
 ```bash
-fly launch
+docker build -t config-server:latest .
 ```
 
-O simplemente despliega usando la configuración existente:
+2. Crea los directorios necesarios si no existen:
 
 ```bash
-fly deploy
+mkdir -p ./data ../repos
 ```
 
-4. Configura las variables de entorno sensibles (credenciales):
+3. Ejecuta el contenedor:
 
 ```bash
-fly secrets set BASIC_AUTH_USERNAME=tu_usuario
-fly secrets set BASIC_AUTH_PASSWORD=tu_contraseña
+docker run -d \
+  --name config-server \
+  -p 8888:8888 \
+  -v "$(pwd)/data:/app/data" \
+  -v "$(pwd)/../repos:/repos" \
+  -e PORT=8888 \
+  -e BASE_REPOS_PATH=/repos \
+  -e PATH_SWAGGER=docs \
+  -e BASIC_AUTH_USERNAME=admin \
+  -e BASIC_AUTH_PASSWORD=admin \
+  -e THROTTLER_TTL=10 \
+  -e THROTTLER_LIMIT=5 \
+  config-server:latest
 ```
 
-5. Crea el volumen para datos persistentes (si es la primera vez):
+4. Para ver los logs del contenedor:
 
 ```bash
-fly volumes create config_server_data --size 1
+docker logs -f config-server
 ```
 
-6. Una vez desplegado, obtén la URL pública:
+5. Para detener y eliminar el contenedor:
 
 ```bash
-fly open
+docker stop config-server
+docker rm config-server
 ```
 
 ## Notas Importantes
@@ -73,4 +82,4 @@ fly open
 - La base de datos SQLite se guarda en el volumen montado `/app/data` para persistencia.
 - Los repositorios se clonan en `/repos` dentro del contenedor.
 - Las credenciales básicas por defecto son admin/admin, pero deberías cambiarlas en producción.
-- Puedes ajustar las variables de entorno en `docker-compose.yml` (local) o usando `fly secrets set` (Fly.io).
+- Puedes ajustar las variables de entorno en `docker-compose.yml` o al ejecutar el contenedor.
