@@ -256,6 +256,7 @@ El servidor admite los siguientes formatos para archivos de configuración:
 - Properties (\*.properties)
 - YML (\*.yml)
 - YAML (\*.yaml)
+- XML (\*.xml)
 
 Los archivos deben seguir la convención de nombres:
 `<nombre-aplicacion>-<perfil>.<extension>`
@@ -266,6 +267,7 @@ Ejemplos:
 - `miapp-dev.yaml`
 - `miapp-qa.yml`
 - `miapp-prod.properties`
+- `miapp-dev.xml`
 
 ## Cliente de Configuración
 

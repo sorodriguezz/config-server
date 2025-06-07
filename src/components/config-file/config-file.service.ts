@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'js-yaml';
 import * as properties from 'properties';
+import { XMLParser } from 'fast-xml-parser';
 
 import type { IConfigFile } from './interfaces/config-file.interface';
 
@@ -31,7 +32,7 @@ export class ConfigFileService {
     };
   }
 
-   private parseContent(content: string, extension: string): any {
+  private parseContent(content: string, extension: string): any {
     try {
       switch (extension.toLowerCase()) {
         case '.json':
@@ -47,6 +48,8 @@ export class ConfigFileService {
             sections: true,
             namespace: true,
           });
+        case '.xml':
+          return new XMLParser().parse(content);
         default:
           return content;
       }

@@ -32,6 +32,7 @@
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "env-var": "^7.5.0",
+    "fast-xml-parser": "^5.2.4",
     "js-yaml": "^4.1.0",
     "passport-http": "^0.3.0",
     "properties": "^1.2.1",
