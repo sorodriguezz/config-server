@@ -1,4 +1,10 @@
-import { Controller, Get, Logger, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Logger,
+  Query,
+} from '@nestjs/common';
 import { ConfigFileService } from './config-file.service';
 
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -43,9 +49,7 @@ export class ConfigFileController {
 
     if (!repo || !application || !profile) {
       this.logger.error('Missing required parameters');
-      return {
-        error: 'Missing required parameters',
-      };
+      throw new BadRequestException('Missing required parameters');
     }
 
     this.logger.debug(
