@@ -12,9 +12,6 @@ dist
 coverage
 *.lcov
 
-package-lock.json
-bun.lock
-
 # logs
 logs
 _.log

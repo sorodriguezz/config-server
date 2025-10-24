@@ -9,12 +9,14 @@ services:
     volumes:
       - ./data:/app/data
       - ../repos:/repos
+    env_file:
+      - .env
     environment:
-      - PORT=8888
-      - BASE_REPOS_PATH=/repos
-      - PATH_SWAGGER=docs
-      - BASIC_AUTH_USERNAME=admin
-      - BASIC_AUTH_PASSWORD=admin
-      - THROTTLER_TTL=10
-      - THROTTLER_LIMIT=5
+      - PORT=${PORT}
+      - BASE_REPOS_PATH=${BASE_REPOS_PATH}
+      - PATH_SWAGGER=${PATH_SWAGGER}
+      - BASIC_AUTH_USERNAME=${BASIC_AUTH_USERNAME}
+      - BASIC_AUTH_PASSWORD=${BASIC_AUTH_PASSWORD}
+      - THROTTLER_TTL=${THROTTLER_TTL}
+      - THROTTLER_LIMIT=${THROTTLER_LIMIT}
     restart: unless-stopped
