@@ -1,4 +1,3 @@
-# ⛔️ DEPRECATED
 # Config Server
 
 **English** | [Español](README.es.md)
